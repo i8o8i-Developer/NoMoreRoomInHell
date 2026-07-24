@@ -19,6 +19,7 @@ exec ./srcds_run \
   -game nmrih \
   -console \
   -usercon \
+  -ip 176.31.163.114 \
   -port ${SRCDS_PORT:-27015} \
   +map ${SRCDS_MAP:-nmo_broadway} \
   +maxplayers ${SRCDS_MAXPLAYERS:-8} \
