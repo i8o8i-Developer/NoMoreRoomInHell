@@ -1,0 +1,20 @@
+services:
+  nmrih:
+    build: .
+    container_name: nmrih-server
+    restart: unless-stopped
+    ports:
+      - "27015:27015/udp"
+      - "27015:27015/tcp"
+      - "27020:27020/udp"   # SourceTV, optional
+    volumes:
+      - ./data:/home/steam/nmrih
+    environment:
+      - SRCDS_PORT=27015
+      - SRCDS_MAP=nmo_broadway
+      - SRCDS_MAXPLAYERS=8
+      - SRCDS_HOSTNAME=NMRIH Durgaai Solutions
+      - RCON_PASSWORD=ChangeMe
+      - GSLT_TOKEN=your_gslt_token_here
+    stdin_open: true
+    tty: true
