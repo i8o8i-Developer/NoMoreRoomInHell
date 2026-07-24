@@ -1,20 +1,23 @@
 services:
   nmrih:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: nmrih-server
     restart: unless-stopped
-    ports:
-      - "27015:27015/udp"
-      - "27015:27015/tcp"
-      - "27020:27020/udp"   # SourceTV, optional
+    network_mode: host
     volumes:
-      - ./data:/home/steam/nmrih
+      - nmrih-data:/home/steam/nmrih
     environment:
-      - SRCDS_PORT=27015
-      - SRCDS_MAP=nmo_broadway
-      - SRCDS_MAXPLAYERS=8
-      - SRCDS_HOSTNAME=NMRIH Durgaai Solutions
-      - RCON_PASSWORD=ChangeMe
-      - GSLT_TOKEN=your_gslt_token_here
+      SRCDS_PORT: ${SRCDS_PORT:-27015}
+      SRCDS_MAP: ${SRCDS_MAP:-nmo_broadway}
+      SRCDS_MAXPLAYERS: ${SRCDS_MAXPLAYERS:-8}
+      SRCDS_HOSTNAME: ${SRCDS_HOSTNAME:-No More Room In Hell Server}
+      RCON_PASSWORD: ${RCON_PASSWORD:-changeme}
+      SERVER_PASSWORD: ${SERVER_PASSWORD:-}
+      GSLT_TOKEN: ${GSLT_TOKEN:?GSLT_TOKEN is required}
     stdin_open: true
     tty: true
+
+volumes:
+  nmrih-data:
